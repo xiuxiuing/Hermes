@@ -2,17 +2,15 @@
  *
  * Copyright 2016 Xiaofei
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
@@ -43,8 +41,7 @@ public class Reply implements Parcelable {
 
     private Object mResult;
 
-    public static final Parcelable.Creator<Reply> CREATOR
-            = new Parcelable.Creator<Reply>() {
+    public static final Parcelable.Creator<Reply> CREATOR = new Parcelable.Creator<Reply>() {
         public Reply createFromParcel(Parcel in) {
             Reply reply = new Reply();
             reply.readFromParcel(in);
@@ -67,6 +64,7 @@ public class Reply implements Parcelable {
         parcel.writeString(mErrorMessage);
         parcel.writeParcelable(mClass, flags);
         try {
+            System.out.println("writeToParcel data:" + CodeUtils.encode(mResult) == null);
             parcel.writeString(CodeUtils.encode(mResult));
         } catch (HermesException e) {
             e.printStackTrace();
@@ -81,7 +79,10 @@ public class Reply implements Parcelable {
         mClass = in.readParcelable(classLoader);
         try {
             Class<?> clazz = TYPE_CENTER.getClassType(mClass);
-            mResult = CodeUtils.decode(in.readString(), clazz);
+            String data = in.readString();
+
+            System.out.println("readFromParcel data:" + data == null);
+            mResult = CodeUtils.decode(data, clazz);
         } catch (Exception e) {
 
         }
@@ -94,6 +95,7 @@ public class Reply implements Parcelable {
     public Reply(ParameterWrapper parameterWrapper) {
         try {
             Class<?> clazz = TYPE_CENTER.getClassType(parameterWrapper);
+            System.out.println("Reply data:" + parameterWrapper.isNull());
             mResult = CodeUtils.decode(parameterWrapper.getData(), clazz);
             mErrorCode = ErrorCodes.SUCCESS;
             mErrorMessage = null;

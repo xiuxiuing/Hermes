@@ -2,17 +2,15 @@
  *
  * Copyright 2016 Xiaofei
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
@@ -21,8 +19,8 @@ package xiaofei.library.hermes.sender;
 import java.lang.reflect.Method;
 
 import xiaofei.library.hermes.HermesService;
-import xiaofei.library.hermes.util.ErrorCodes;
 import xiaofei.library.hermes.util.CodeUtils;
+import xiaofei.library.hermes.util.ErrorCodes;
 import xiaofei.library.hermes.util.HermesException;
 import xiaofei.library.hermes.wrapper.MethodWrapper;
 import xiaofei.library.hermes.wrapper.ObjectWrapper;
@@ -39,6 +37,7 @@ public class InstanceGettingSender extends Sender {
 
     @Override
     protected void setParameterWrappers(ParameterWrapper[] parameterWrappers) {
+        System.out.println("setParameterWrappers parameterWrappers:" + parameterWrappers == null);
         int length = parameterWrappers.length;
         ParameterWrapper[] tmp = new ParameterWrapper[length - 1];
         for (int i = 1; i < length; ++i) {
@@ -52,12 +51,13 @@ public class InstanceGettingSender extends Sender {
         ParameterWrapper parameterWrapper = parameterWrappers[0];
         String methodName;
         try {
+            System.out.println("getMethodWrapper:" + parameterWrapper.getData()== null);
             methodName = CodeUtils.decode(parameterWrapper.getData(), String.class);
         } catch (HermesException e) {
             e.printStackTrace();
-            throw new HermesException(ErrorCodes.GSON_DECODE_EXCEPTION,
-                    "Error occurs when decoding the method name.");
+            throw new HermesException(ErrorCodes.GSON_DECODE_EXCEPTION, "Error occurs when decoding the method name.");
         }
+        System.out.println("getMethodWrapper parameterWrappers:" + parameterWrappers == null);
         int length = parameterWrappers.length;
         Class<?>[] parameterTypes = new Class[length - 1];
         for (int i = 1; i < length; ++i) {

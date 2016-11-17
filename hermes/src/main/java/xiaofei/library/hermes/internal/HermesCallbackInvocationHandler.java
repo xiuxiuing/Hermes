@@ -2,27 +2,25 @@
  *
  * Copyright 2016 Xiaofei
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
 package xiaofei.library.hermes.internal;
 
-import android.os.RemoteException;
-import android.util.Log;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+
+import android.os.RemoteException;
+import android.util.Log;
 
 import xiaofei.library.hermes.util.HermesException;
 import xiaofei.library.hermes.util.TypeUtils;
@@ -55,6 +53,7 @@ public class HermesCallbackInvocationHandler implements InvocationHandler {
             ParameterWrapper[] parameterWrappers = TypeUtils.objectToWrapper(objects);
             CallbackMail callbackMail = new CallbackMail(mTimeStamp, mIndex, methodWrapper, parameterWrappers);
             Reply reply = mCallback.callback(callbackMail);
+            System.out.println("invoke reply:" + reply.toString());
             if (reply == null) {
                 return null;
             }

@@ -2,21 +2,24 @@
  *
  * Copyright 2016 Xiaofei
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
 package xiaofei.library.hermes.internal;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -27,14 +30,9 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Process;
 import android.os.RemoteException;
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import android.util.Pair;
 
 import xiaofei.library.hermes.HermesListener;
 import xiaofei.library.hermes.HermesService;
@@ -54,13 +52,17 @@ public class Channel {
 
     private static volatile Channel sInstance = null;
 
-    private final ConcurrentHashMap<Class<? extends HermesService>, IHermesService> mHermesServices = new ConcurrentHashMap<Class<? extends HermesService>, IHermesService>();
+    private final ConcurrentHashMap<Class<? extends HermesService>, IHermesService> mHermesServices =
+            new ConcurrentHashMap<Class<? extends HermesService>, IHermesService>();
 
-    private final ConcurrentHashMap<Class<? extends HermesService>, HermesServiceConnection> mHermesServiceConnections = new ConcurrentHashMap<Class<? extends HermesService>, HermesServiceConnection>();
+    private final ConcurrentHashMap<Class<? extends HermesService>, HermesServiceConnection> mHermesServiceConnections =
+            new ConcurrentHashMap<Class<? extends HermesService>, HermesServiceConnection>();
 
-    private final ConcurrentHashMap<Class<? extends HermesService>, Boolean> mBindings = new ConcurrentHashMap<Class<? extends HermesService>, Boolean>();
+    private final ConcurrentHashMap<Class<? extends HermesService>, Boolean> mBindings =
+            new ConcurrentHashMap<Class<? extends HermesService>, Boolean>();
 
-    private final ConcurrentHashMap<Class<? extends HermesService>, Boolean> mBounds = new ConcurrentHashMap<Class<? extends HermesService>, Boolean>();
+    private final ConcurrentHashMap<Class<? extends HermesService>, Boolean> mBounds =
+            new ConcurrentHashMap<Class<? extends HermesService>, Boolean>();
 
     private HermesListener mListener = null;
 
@@ -76,6 +78,7 @@ public class Channel {
             if (parameterWrappers == null) {
                 parameterWrappers = new ParameterWrapper[0];
             }
+            System.out.println("getParameters parameterWrappers:" + parameterWrappers == null);
             int length = parameterWrappers.length;
             Object[] result = new Object[length];
             for (int i = 0; i < length; ++i) {
@@ -86,6 +89,7 @@ public class Channel {
                     Class<?> clazz = TYPE_CENTER.getClassType(parameterWrapper);
 
                     String data = parameterWrapper.getData();
+                    System.out.println("getParameters data:" + data != null);
                     if (data == null) {
                         result[i] = null;
                     } else {
@@ -224,13 +228,12 @@ public class Channel {
         IHermesService hermesService = mHermesServices.get(service);
         try {
             if (hermesService == null) {
-                return new Reply(ErrorCodes.SERVICE_UNAVAILABLE,
-                        "Service Unavailable: Check whether you have connected Hermes.");
+                return new Reply(ErrorCodes.SERVICE_UNAVAILABLE, "Service Unavailable: Check whether you have connected Hermes.");
             }
             return hermesService.send(mail);
         } catch (RemoteException e) {
-            return new Reply(ErrorCodes.REMOTE_EXCEPTION, "Remote Exception: Check whether "
-                    + "the process you are communicating with is still alive.");
+            return new Reply(ErrorCodes.REMOTE_EXCEPTION,
+                    "Remote Exception: Check whether " + "the process you are communicating with is still alive.");
         }
     }
 
@@ -275,8 +278,7 @@ public class Channel {
                     hermesService.register(mHermesServiceCallback, Process.myPid());
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                    Log.e(TAG, "Remote Exception: Check whether "
-                            + "the process you are communicating with is still alive.");
+                    Log.e(TAG, "Remote Exception: Check whether " + "the process you are communicating with is still alive.");
                     return;
                 }
             }

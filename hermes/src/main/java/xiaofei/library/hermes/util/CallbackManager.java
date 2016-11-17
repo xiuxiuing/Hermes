@@ -18,7 +18,8 @@
 
 package xiaofei.library.hermes.util;
 
-import android.support.v4.util.Pair;
+
+import android.util.Pair;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.ConcurrentHashMap;

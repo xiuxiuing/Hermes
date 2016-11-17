@@ -2,26 +2,24 @@
  *
  * Copyright 2016 Xiaofei
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
 package xiaofei.library.hermes;
 
+import java.lang.reflect.Proxy;
+
 import android.content.Context;
 import android.util.Log;
-
-import java.lang.reflect.Proxy;
 
 import xiaofei.library.hermes.internal.Channel;
 import xiaofei.library.hermes.internal.HermesInvocationHandler;
@@ -63,7 +61,9 @@ public class Hermes {
     /**
      * There is no need to register class in local process!
      *
-     * But if the returned type of a method is not exactly the same with the return type of the method, it should be registered.
+     * But if the returned type of a method is not exactly the same with the return type of the
+     * method, it should be registered.
+     * 
      * @param clazz
      */
     public static void register(Class<?> clazz) {
@@ -85,15 +85,13 @@ public class Hermes {
     private static void checkBound(Class<? extends HermesService> service) {
         if (!CHANNEL.getBound(service)) {
             throw new IllegalStateException("Service Unavailable: You have not connected the service "
-                    + "or the connection is not completed. You can set HermesListener to receive a callback "
-                    + "when the connection is completed.");
+                    + "or the connection is not completed. You can set HermesListener to receive a callback " + "when the connection is completed.");
         }
     }
 
     private static <T> T getProxy(Class<? extends HermesService> service, ObjectWrapper object) {
         Class<?> clazz = object.getObjectClass();
-        T proxy =  (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz},
-                    new HermesInvocationHandler(service, object));
+        T proxy = (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[] {clazz}, new HermesInvocationHandler(service, object));
         HERMES_GC.register(service, proxy, object.getTimeStamp());
         return proxy;
     }
@@ -134,15 +132,19 @@ public class Hermes {
         return getInstanceWithMethodNameInService(HermesService.HermesService0.class, clazz, methodName, parameters);
     }
 
-    public static <T> T getInstanceWithMethodNameInService(Class<? extends HermesService> service, Class<T> clazz, String methodName, Object... parameters) {
+    public static <T> T getInstanceWithMethodNameInService(Class<? extends HermesService> service, Class<T> clazz, String methodName,
+            Object... parameters) {
         TypeUtils.validateServiceInterface(clazz);
         checkBound(service);
         ObjectWrapper object = new ObjectWrapper(clazz, ObjectWrapper.TYPE_OBJECT_TO_GET);
         Sender sender = SenderDesignator.getPostOffice(service, SenderDesignator.TYPE_GET_INSTANCE, object);
         if (parameters == null) {
             parameters = new Object[0];
+            System.out.println("getInstanceWithMethodNameInService :" + parameters == null);
         }
+        System.out.println("getInstanceWithMethodNameInService :" + parameters == null);
         int length = parameters.length;
+
         Object[] tmp = new Object[length + 1];
         tmp[0] = methodName;
         for (int i = 0; i < length; ++i) {
@@ -228,6 +230,7 @@ public class Hermes {
 
     /**
      * For test only
+     * 
      * @return
      */
     public static String getVersion() {

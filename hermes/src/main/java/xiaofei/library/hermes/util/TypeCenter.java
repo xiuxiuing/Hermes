@@ -152,6 +152,7 @@ public class TypeCenter {
     }
 
     public Class<?>[] getClassTypes(BaseWrapper[] wrappers) throws HermesException {
+        System.out.println("getClassTypes wrappers:" + wrappers == null);
         Class<?>[] classes = new Class<?>[wrappers.length];
         for (int i = 0; i < wrappers.length; ++i) {
             classes[i] = getClassType(wrappers[i]);

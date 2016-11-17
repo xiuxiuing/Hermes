@@ -2,17 +2,15 @@
  *
  * Copyright 2016 Xiaofei
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  *
  */
 
@@ -33,16 +31,16 @@ public class ParameterWrapper extends BaseWrapper implements Parcelable {
 
     private String mData;
 
-    //only used here.
+    // only used here.
     private Class<?> mClass;
 
-    public static final Parcelable.Creator<ParameterWrapper> CREATOR
-            = new Parcelable.Creator<ParameterWrapper>() {
+    public static final Parcelable.Creator<ParameterWrapper> CREATOR = new Parcelable.Creator<ParameterWrapper>() {
         public ParameterWrapper createFromParcel(Parcel in) {
             ParameterWrapper parameterWrapper = new ParameterWrapper();
             parameterWrapper.readFromParcel(in);
             return parameterWrapper;
         }
+
         public ParameterWrapper[] newArray(int size) {
             return new ParameterWrapper[size];
         }
@@ -56,9 +54,10 @@ public class ParameterWrapper extends BaseWrapper implements Parcelable {
         mClass = clazz;
         setName(!clazz.isAnnotationPresent(ClassId.class), TypeUtils.getClassId(clazz));
         mData = CodeUtils.encode(object);
+        System.out.println("ParameterWrapper1:" + mData == null);
     }
 
-    public ParameterWrapper(Object object) throws HermesException{
+    public ParameterWrapper(Object object) throws HermesException {
         if (object == null) {
             setName(false, "");
             mData = null;
@@ -68,6 +67,7 @@ public class ParameterWrapper extends BaseWrapper implements Parcelable {
             mClass = clazz;
             setName(!clazz.isAnnotationPresent(ClassId.class), TypeUtils.getClassId(clazz));
             mData = CodeUtils.encode(object);
+            System.out.println("ParameterWrapper2:" + mData==null);
         }
     }
 

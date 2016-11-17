@@ -71,6 +71,7 @@ public class CallbackMail implements Parcelable {
         if (parcelables == null) {
             mParameters = null;
         } else {
+            System.out.println("readFromParcel parcelables:" + parcelables == null);
             int length = parcelables.length;
             mParameters = new ParameterWrapper[length];
             for (int i = 0; i < length; ++i) {
