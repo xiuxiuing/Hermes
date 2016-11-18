@@ -87,7 +87,6 @@ public abstract class Receiver {
         if (parameterWrappers == null) {
             mParameters = null;
         } else {
-            System.out.println("setParameters parameterWrappers:" + parameterWrappers == null);
             int length = parameterWrappers.length;
             mParameters = new Object[length];
             for (int i = 0; i < length; ++i) {
@@ -103,8 +102,7 @@ public abstract class Receiver {
                     } else if (clazz != null && Context.class.isAssignableFrom(clazz)) {
                         mParameters[i] = Hermes.getContext();
                     } else {
-                        String data = parameterWrapper.getData();
-                        System.out.println("setParameters:"+ data == null);
+                        byte[] data = parameterWrapper.getData();
                         if (data == null) {
                             mParameters[i] = null;
                         } else {

@@ -36,7 +36,6 @@ public class InstanceCreatingSender extends Sender {
 
     @Override
     protected MethodWrapper getMethodWrapper(Method method, ParameterWrapper[] parameterWrappers) {
-        System.out.println("getMethodWrapper parameterWrappers:" + parameterWrappers == null);
         int length = parameterWrappers == null ? 0 : parameterWrappers.length;
         mConstructorParameterTypes = new Class<?>[length];
         for (int i = 0; i < length; ++i) {

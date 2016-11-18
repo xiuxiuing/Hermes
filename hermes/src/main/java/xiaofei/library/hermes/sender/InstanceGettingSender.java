@@ -37,7 +37,6 @@ public class InstanceGettingSender extends Sender {
 
     @Override
     protected void setParameterWrappers(ParameterWrapper[] parameterWrappers) {
-        System.out.println("setParameterWrappers parameterWrappers:" + parameterWrappers == null);
         int length = parameterWrappers.length;
         ParameterWrapper[] tmp = new ParameterWrapper[length - 1];
         for (int i = 1; i < length; ++i) {
@@ -51,13 +50,11 @@ public class InstanceGettingSender extends Sender {
         ParameterWrapper parameterWrapper = parameterWrappers[0];
         String methodName;
         try {
-            System.out.println("getMethodWrapper:" + parameterWrapper.getData()== null);
             methodName = CodeUtils.decode(parameterWrapper.getData(), String.class);
         } catch (HermesException e) {
             e.printStackTrace();
             throw new HermesException(ErrorCodes.GSON_DECODE_EXCEPTION, "Error occurs when decoding the method name.");
         }
-        System.out.println("getMethodWrapper parameterWrappers:" + parameterWrappers == null);
         int length = parameterWrappers.length;
         Class<?>[] parameterTypes = new Class[length - 1];
         for (int i = 1; i < length; ++i) {

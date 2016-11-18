@@ -45,7 +45,6 @@ public class InstanceGettingReceiver extends Receiver {
 
     @Override
     public void setMethod(MethodWrapper methodWrapper, ParameterWrapper[] parameterWrappers) throws HermesException {
-        System.out.println("setMethod parameterWrappers:" + parameterWrappers == null);
         int length = parameterWrappers.length;
         Class<?>[] parameterTypes = new Class<?>[length];
         for (int i = 0; i < length; ++i) {

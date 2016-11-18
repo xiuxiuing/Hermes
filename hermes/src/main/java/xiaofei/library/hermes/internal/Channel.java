@@ -78,7 +78,6 @@ public class Channel {
             if (parameterWrappers == null) {
                 parameterWrappers = new ParameterWrapper[0];
             }
-            System.out.println("getParameters parameterWrappers:" + parameterWrappers == null);
             int length = parameterWrappers.length;
             Object[] result = new Object[length];
             for (int i = 0; i < length; ++i) {
@@ -88,8 +87,7 @@ public class Channel {
                 } else {
                     Class<?> clazz = TYPE_CENTER.getClassType(parameterWrapper);
 
-                    String data = parameterWrapper.getData();
-                    System.out.println("getParameters data:" + data != null);
+                    byte[] data = parameterWrapper.getData();
                     if (data == null) {
                         result[i] = null;
                     } else {

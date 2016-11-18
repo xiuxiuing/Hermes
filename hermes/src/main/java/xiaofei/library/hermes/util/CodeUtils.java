@@ -21,7 +21,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.google.gson.Gson;
 
 
 /**
@@ -29,14 +28,13 @@ import com.google.gson.Gson;
  */
 public class CodeUtils {
 
-    private static final Gson GSON = new Gson();
-    private static byte[] outBytes;
+//    private static final Gson GSON = new Gson();
 
     private CodeUtils() {
 
     }
 
-    public static String encode(Object object) throws HermesException {
+    public static byte[] encode(Object object) throws HermesException {
         if (object == null) {
             return null;
         } else {
@@ -44,15 +42,16 @@ public class CodeUtils {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ObjectOutputStream out = new ObjectOutputStream(baos);
                 out.writeObject(object);
-                outBytes = baos.toByteArray();
-                System.out.println("CodeUtils encode:" + outBytes == null);
-                // return outBytes;
+                byte[] outBytes = baos.toByteArray();
+                out.close();
+                baos.close();
+                return outBytes;
 
 
                 // JSONObject json = new JSONObject(object);
                 // System.out.println("CodeUtils json:" + json.toString());
-                System.out.println("CodeUtils Gson:" + GSON.toJson(object));
-                return GSON.toJson(object);
+                // System.out.println("CodeUtils Gson:" + GSON.toJson(object));
+                // return GSON.toJson(object);
             } catch (RuntimeException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -62,18 +61,18 @@ public class CodeUtils {
         }
     }
 
-    public static <T> T decode(String data, Class<T> clazz) throws HermesException {
+    public static <T> T decode(byte[] data, Class<T> clazz) throws HermesException {
         try {
-            System.out.println("CodeUtils decode:" + data);
-            if (outBytes != null) {
-                ByteArrayInputStream ins = new ByteArrayInputStream(outBytes);
-                ObjectInputStream in = new ObjectInputStream(ins);
-                T o = clazz.cast(in.readObject());
-                System.out.println("CodeUtils decode:" + o.getClass());
-                // return o;
-            }
 
-            return GSON.fromJson(data, clazz);
+            ByteArrayInputStream ins = new ByteArrayInputStream(data);
+            ObjectInputStream in = new ObjectInputStream(ins);
+            T o = clazz.cast(in.readObject());
+            in.close();
+            ins.close();
+            return o;
+
+
+
         } catch (RuntimeException e) {
             e.printStackTrace();
         } catch (Exception e) {

@@ -56,7 +56,6 @@ public class MethodWrapper extends BaseWrapper implements Parcelable {
         if (classes == null) {
             classes = new Class<?>[0];
         }
-        System.out.println("MethodWrapper classes:" + classes == null);
         int length = classes.length;
         mParameterTypes = new TypeWrapper[length];
         for (int i = 0; i < length; ++i) {
@@ -70,7 +69,6 @@ public class MethodWrapper extends BaseWrapper implements Parcelable {
         if (parameterTypes == null) {
             parameterTypes = new Class<?>[0];
         }
-        System.out.println("MethodWrapper parameterTypes:" + parameterTypes == null);
         int length = parameterTypes.length;
         mParameterTypes = new TypeWrapper[length];
         for (int i = 0; i < length; ++i) {
@@ -84,7 +82,6 @@ public class MethodWrapper extends BaseWrapper implements Parcelable {
         if (parameterTypes == null) {
             parameterTypes = new Class<?>[0];
         }
-        System.out.println("MethodWrapper parameterTypes:" + parameterTypes == null);
         int length = parameterTypes.length;
         mParameterTypes = new TypeWrapper[length];
         for (int i = 0; i < length; ++i) {
@@ -120,7 +117,6 @@ public class MethodWrapper extends BaseWrapper implements Parcelable {
         if (parcelables == null) {
             mParameterTypes = null;
         } else {
-            System.out.println("MethodWrapper parcelables:" + parcelables == null);
             int length = parcelables.length;
             mParameterTypes = new TypeWrapper[length];
             for (int i = 0; i < length; ++i) {

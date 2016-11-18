@@ -105,7 +105,6 @@ public class TypeUtils {
 
     public static String getMethodParameters(Class<?>[] classes) {
         StringBuilder result = new StringBuilder();
-        System.out.println("getMethodParameters classes:" + classes == null);
         int length = classes.length;
         if (length == 0) {
             return result.toString();
@@ -150,7 +149,6 @@ public class TypeUtils {
     }
 
     public static boolean classAssignable(Class<?>[] classes1, Class<?>[] classes2) {
-        System.out.println("classAssignable :" + (classes1== null) + (classes2 == null));
         if (classes1.length != classes2.length) {
             return false;
         }
@@ -369,8 +367,6 @@ public class TypeUtils {
     public static void methodParameterTypeMatch(Method method, MethodWrapper methodWrapper) throws HermesException {
         Class<?>[] requiredParameterTypes = TypeCenter.getInstance().getClassTypes(methodWrapper.getParameterTypes());
         Class<?>[] parameterTypes = method.getParameterTypes();
-        System.out.println("methodParameterTypeMatch requiredParameterTypes:" + requiredParameterTypes == null);
-        System.out.println("methodParameterTypeMatch parameterTypes:" + parameterTypes == null);
         if (requiredParameterTypes.length != parameterTypes.length) {
             throw new HermesException(ErrorCodes.METHOD_PARAMETER_NOT_MATCHING,
                     "The number of method parameters do not match. "

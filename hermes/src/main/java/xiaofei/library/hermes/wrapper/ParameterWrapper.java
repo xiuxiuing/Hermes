@@ -29,7 +29,7 @@ import xiaofei.library.hermes.util.TypeUtils;
  */
 public class ParameterWrapper extends BaseWrapper implements Parcelable {
 
-    private String mData;
+    private byte[] mData;
 
     // only used here.
     private Class<?> mClass;
@@ -54,7 +54,6 @@ public class ParameterWrapper extends BaseWrapper implements Parcelable {
         mClass = clazz;
         setName(!clazz.isAnnotationPresent(ClassId.class), TypeUtils.getClassId(clazz));
         mData = CodeUtils.encode(object);
-        System.out.println("ParameterWrapper1:" + mData == null);
     }
 
     public ParameterWrapper(Object object) throws HermesException {
@@ -67,7 +66,6 @@ public class ParameterWrapper extends BaseWrapper implements Parcelable {
             mClass = clazz;
             setName(!clazz.isAnnotationPresent(ClassId.class), TypeUtils.getClassId(clazz));
             mData = CodeUtils.encode(object);
-            System.out.println("ParameterWrapper2:" + mData==null);
         }
     }
 
@@ -79,15 +77,16 @@ public class ParameterWrapper extends BaseWrapper implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         super.writeToParcel(parcel, flags);
-        parcel.writeString(mData);
+        parcel.writeByteArray(mData);
     }
 
     public void readFromParcel(Parcel in) {
         super.readFromParcel(in);
-        mData = in.readString();
+        mData = in.createByteArray();
+        // in.readByteArray(mData);
     }
 
-    public String getData() {
+    public byte[] getData() {
         return mData;
     }
 

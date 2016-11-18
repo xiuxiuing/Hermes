@@ -111,7 +111,6 @@ public abstract class Sender {
     }
 
     private final ParameterWrapper[] getParameterWrappers(Method method, Object[] parameters) throws HermesException {
-        System.out.println("ParameterWrapper parameters:" + parameters == null);
         int length = parameters.length;
         ParameterWrapper[] parameterWrappers = new ParameterWrapper[length];
         if (method != null) {

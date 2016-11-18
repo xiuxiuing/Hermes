@@ -53,7 +53,6 @@ public class HermesCallbackInvocationHandler implements InvocationHandler {
             ParameterWrapper[] parameterWrappers = TypeUtils.objectToWrapper(objects);
             CallbackMail callbackMail = new CallbackMail(mTimeStamp, mIndex, methodWrapper, parameterWrappers);
             Reply reply = mCallback.callback(callbackMail);
-            System.out.println("invoke reply:" + reply.toString());
             if (reply == null) {
                 return null;
             }

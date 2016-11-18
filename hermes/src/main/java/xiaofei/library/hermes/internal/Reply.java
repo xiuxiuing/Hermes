@@ -64,8 +64,7 @@ public class Reply implements Parcelable {
         parcel.writeString(mErrorMessage);
         parcel.writeParcelable(mClass, flags);
         try {
-            System.out.println("writeToParcel data:" + CodeUtils.encode(mResult) == null);
-            parcel.writeString(CodeUtils.encode(mResult));
+            parcel.writeByteArray(CodeUtils.encode(mResult));
         } catch (HermesException e) {
             e.printStackTrace();
         }
@@ -79,9 +78,9 @@ public class Reply implements Parcelable {
         mClass = in.readParcelable(classLoader);
         try {
             Class<?> clazz = TYPE_CENTER.getClassType(mClass);
-            String data = in.readString();
+            byte[] data = in.createByteArray();
+//            in.readByteArray(data);
 
-            System.out.println("readFromParcel data:" + data == null);
             mResult = CodeUtils.decode(data, clazz);
         } catch (Exception e) {
 
@@ -95,7 +94,6 @@ public class Reply implements Parcelable {
     public Reply(ParameterWrapper parameterWrapper) {
         try {
             Class<?> clazz = TYPE_CENTER.getClassType(parameterWrapper);
-            System.out.println("Reply data:" + parameterWrapper.isNull());
             mResult = CodeUtils.decode(parameterWrapper.getData(), clazz);
             mErrorCode = ErrorCodes.SUCCESS;
             mErrorMessage = null;

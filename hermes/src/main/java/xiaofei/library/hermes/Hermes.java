@@ -140,9 +140,7 @@ public class Hermes {
         Sender sender = SenderDesignator.getPostOffice(service, SenderDesignator.TYPE_GET_INSTANCE, object);
         if (parameters == null) {
             parameters = new Object[0];
-            System.out.println("getInstanceWithMethodNameInService :" + parameters == null);
         }
-        System.out.println("getInstanceWithMethodNameInService :" + parameters == null);
         int length = parameters.length;
 
         Object[] tmp = new Object[length + 1];
