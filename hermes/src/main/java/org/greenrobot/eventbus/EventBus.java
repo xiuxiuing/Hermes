@@ -38,6 +38,12 @@ import android.util.Log;
  *
  * @author Markus Junginger, greenrobot
  */
+//
+// -keepattributes *Annotation*
+// -keepclassmembers class ** {
+// @org.greenrobot.eventbus.Subscribe <methods>;
+// }
+// -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 public class EventBus {
 
     /** Log tag, apps may override it. */

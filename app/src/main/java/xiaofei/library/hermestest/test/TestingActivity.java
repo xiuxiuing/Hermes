@@ -1,5 +1,6 @@
 package xiaofei.library.hermestest.test;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -162,4 +163,6 @@ public class TestingActivity extends Activity {
         super.onDestroy();
         Hermes.disconnect(this);
     }
+
+
 }
